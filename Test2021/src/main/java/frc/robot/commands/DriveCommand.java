@@ -27,12 +27,9 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
     double yaxis = RobotContainer.getY(RobotContainer.joy1, Constants.deadband); 
     double zaxis = RobotContainer.getZ(RobotContainer.joy1, Constants.deadband); 
-
     driveSubsystem.arcadeInbuilt(yaxis, zaxis);
-
   }
 
   // Called once the command ends or is interrupted.
