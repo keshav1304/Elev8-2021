@@ -1,0 +1,13 @@
+[
+  {
+    "name": "FRC2021 (in project FRC2021)",
+    "file": "/Users/thoughtworks/OneDrive/Documents/GitHub/Elev8-2021/FRC2021/build/libs/FRC2021.jar",
+    "extensions": [
+      "/Users/thoughtworks/OneDrive/Documents/GitHub/Elev8-2021/FRC2021/build/tmp/expandedArchives/halsim_gui-2021.1.2-osxx86-64.zip_cebe157c0370b0beb19e3bf47444ccd5/osx/x86-64/shared/libhalsim_gui.dylib",
+      "/Users/thoughtworks/OneDrive/Documents/GitHub/Elev8-2021/FRC2021/build/tmp/expandedArchives/halsim_ds_socket-2021.1.2-osxx86-64.zip_74f940fde2ab76e055beee74e438787d/osx/x86-64/shared/libhalsim_ds_socket.dylib"
+    ],
+    "env": {},
+    "librarydir": "/Users/thoughtworks/OneDrive/Documents/GitHub/Elev8-2021/FRC2021/build/tmp/jniExtractDir",
+    "mainclass": "frc.robot.Main"
+  }
+]
