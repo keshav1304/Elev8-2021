@@ -4,10 +4,19 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.SPI;
+
 import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.MoveByAngleCommand;
 import frc.robot.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,6 +34,8 @@ public class RobotContainer {
 
   // IO Devices
   public static Joystick joy1 = new Joystick(1);
+  public static AHRS navx = new AHRS(SPI.Port.kMXP);
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -41,7 +52,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    JoystickButton commandMoveByAngleButton = new JoystickButton(joy1, Constants.turnButtonNumber);
+    commandMoveByAngleButton.whenPressed(new MoveByAngleCommand(driveSubsystem, 90));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

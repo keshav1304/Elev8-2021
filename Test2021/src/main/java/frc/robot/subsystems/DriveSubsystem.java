@@ -45,10 +45,26 @@ public class DriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  public void drive(final double l, final double r) {
+    FR.setInverted(true);
+    BR.setInverted(true);
+
+    FR.set(r);
+    BR.set(r);
+    FL.set(l);
+    BL.set(l);
+  }
+
   public void arcadeInbuilt(final double y, final double z) {
     FR.setInverted(false);
     BR.setInverted(false);
 
     driveTrain.arcadeDrive(y * Constants.maxSpeed, z * Constants.maxSpeed);
+  }
+
+  public void moveByAngle(double correction) {
+    if (Math.abs(correction) < 0.05) correction = Math.signum(correction) * 0.05;
+    if (Math.abs(correction) > 0.5) correction = Math.signum(correction) * 0.5;
+    drive(correction, -1 * correction);
   }
 }
