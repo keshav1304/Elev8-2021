@@ -65,6 +65,6 @@ public class DriveSubsystem extends SubsystemBase {
   public void moveByAngle(double correction) {
     if (Math.abs(correction) < 0.05) correction = Math.signum(correction) * 0.05;
     if (Math.abs(correction) > 0.5) correction = Math.signum(correction) * 0.5;
-    drive(correction, -1 * correction);
+    drive(correction * Constants.maxSpeed, -1 * correction * Constants.maxSpeed);
   }
 }
