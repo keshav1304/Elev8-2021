@@ -12,7 +12,9 @@ import frc.robot.subsystems.DriveSubsystem;
 public class MoveByAngleCommand extends CommandBase {
 
   DriveSubsystem driveSubsystem;
-  double setpoint, error;
+  double setpoint, error, prevError;
+
+  double integral, derivative;
 
   /** Creates a new MoveByAngleCommand. */
   public MoveByAngleCommand(DriveSubsystem driveSubsystem, double setpoint) {
@@ -30,6 +32,7 @@ public class MoveByAngleCommand extends CommandBase {
   @Override
   public void initialize() {
     RobotContainer.navx.reset();
+    integral = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,7 +40,13 @@ public class MoveByAngleCommand extends CommandBase {
   public void execute() {
 
     this.error = this.setpoint - (RobotContainer.navx.getYaw());
-    double correction = this.error * Constants.kPTurn;
+
+    integral += this.error;
+
+    derivative  = this.error - prevError;
+    prevError = this.error;
+
+    double correction = (this.error * Constants.kPTurn) + (integral * Constants.kITurn) + (derivative * Constants.kDTurn);
     driveSubsystem.moveByAngle(correction);
 
   }
@@ -49,6 +58,6 @@ public class MoveByAngleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(this.error) <= (setpoint * 0.02));
+    return (Math.abs(this.error) <= (setpoint * 0.01));
   }
 }

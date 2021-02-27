@@ -53,8 +53,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton commandMoveByAngleButton = new JoystickButton(joy1, Constants.turnButtonNumber);
-    commandMoveByAngleButton.whenPressed(new MoveByAngleCommand(driveSubsystem, 90));
+    
   }
 
   /**
@@ -64,7 +63,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return new MoveByAngleCommand(driveSubsystem, 60);
   }
 
   public static double getY(Joystick joy, double deadband) {

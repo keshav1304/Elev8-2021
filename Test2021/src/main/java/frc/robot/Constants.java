@@ -20,6 +20,8 @@ public final class Constants {
     public static final int BL_port = 3;
 
     public static final double kPTurn = 0.012;
+    public static final double kITurn = 0;
+    public static final double kDTurn = 0;
 
     public static final int turnButtonNumber = 5;
 
