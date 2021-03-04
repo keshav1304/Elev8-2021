@@ -5,19 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveCommand extends CommandBase {
-
-  DriveSubsystem driveSubsystem;
-
-  /** Creates a new DriveCommand. */
-  public DriveCommand(DriveSubsystem driveSubsystem) {
-    this.driveSubsystem = driveSubsystem;
+public class MoveByAngleCommand extends CommandBase {
+  /** Creates a new MoveByAngleCommand. */
+  public MoveByAngleCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -26,12 +18,7 @@ public class DriveCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    double yaxis = RobotContainer.getY(RobotContainer.joy1, Constants.deadband); 
-    double zaxis = RobotContainer.getZ(RobotContainer.joy1, Constants.deadband); 
-    // driveSubsystem.arcadeInbuilt(yaxis, zaxis);
-    driveSubsystem.driveRaw(yaxis);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

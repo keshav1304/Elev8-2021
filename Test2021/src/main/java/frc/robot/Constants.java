@@ -19,10 +19,15 @@ public final class Constants {
     public static final int BR_port = 4; 
     public static final int BL_port = 3;
 
-    public static double maxSpeed = 0.6d;
-    public static final double deadband = 0.05d;
+    public static double maxSpeed = 0.4d;
+    public static double minSpeed = 0.08d;
+    public static double deadband = 0.05d;
 
-    // public static final double deltaT = 20 * Math.pow(10, -3);
+    // Encoders
+    public static double encoderScale = 0.002d;
+    public static double rightScale = 0.25d;
+
+    // public static final double T = 20 * Math.pow(10, -3);
     public static final double G = 9.81d;
     
 }

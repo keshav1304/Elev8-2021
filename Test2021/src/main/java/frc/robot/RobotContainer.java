@@ -9,9 +9,11 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommand;
+import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.MoveByDistanceCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,6 +31,9 @@ public class RobotContainer {
 
   // IO Devices
   public static Joystick joy1 = new Joystick(1);
+
+  public static Encoder encR = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+  public static Encoder encL = new Encoder(2, 3, true, Encoder.EncodingType.k4X);
   public static AHRS navx = new AHRS(SPI.Port.kMXP);
 
 
@@ -46,7 +51,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -55,7 +63,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return new MoveByDistanceCommand(this.driveSubsystem, 3);
   }
 
   public static double getY(Joystick joy, double deadband) {

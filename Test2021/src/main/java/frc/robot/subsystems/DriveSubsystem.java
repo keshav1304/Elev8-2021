@@ -37,6 +37,11 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
+    // timer = new Timer();
+    // resetIntegrals();
+    // timer.reset();
+    // timer.start();
+
     FR = new WPI_TalonSRX(Constants.FR_port);
     BR = new WPI_TalonSRX(Constants.BR_port);
     rightSide = new SpeedControllerGroup(FR, BR);
@@ -44,27 +49,23 @@ public class DriveSubsystem extends SubsystemBase {
     FL = new WPI_TalonSRX(Constants.FL_port);
     BL = new WPI_TalonSRX(Constants.BL_port); 
     leftSide = new SpeedControllerGroup(FL, BL);
-
-    resetIntegrals();
-    RobotContainer.navx.reset();
-    timer.reset();
-    coastMode();
     
     driveTrain = new DifferentialDrive(leftSide, rightSide);
-
-    timer.start();
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    updateDistance();
+    // updateDistance();
 
-    SmartDashboard.putNumber("Displacement", this.displacement);
-    SmartDashboard.putNumber("Velocity", this.velocity);
-    SmartDashboard.putNumber("Acceleration", this.acceleration);
+    // SmartDashboard.putNumber("Displacement", this.displacement);
+    // SmartDashboard.putNumber("Velocity", this.velocity);
+    // SmartDashboard.putNumber("Acceleration", this.acceleration);
 
+    SmartDashboard.putNumber("Enc R", RobotContainer.encR.getDistance() * Constants.rightScale);
+    SmartDashboard.putNumber("Enc L", RobotContainer.encL.getDistance());
+    
   }
 
   public void arcadeInbuilt(double y, double z) {
@@ -97,22 +98,32 @@ public class DriveSubsystem extends SubsystemBase {
     BL.set(l);
   }
 
+  public void driveRaw(double y) {
+    drive(y * Constants.maxSpeed, y * Constants.maxSpeed);
+  }
+
+  public double getAverageDistance() {
+    return (RobotContainer.encL.getDistance() + RobotContainer.encR.getDistance())/2;
+  }
+
+  public void moveByDistance(double correction) {
+    if (Math.abs(correction) < Constants.minSpeed) correction = Math.signum(correction) * Constants.minSpeed;
+    if (Math.abs(correction) > Constants.maxSpeed) correction = Math.signum(correction) * Constants.maxSpeed;
+    drive(correction, correction);
+  }
+
   public void resetIntegrals() {
     this.velocity = 0.0d;
     this.displacement = 0.0d;
   }
 
+  // Double Integral Function
   public void updateDistance() {
-
     double deltaTime = timer.get() - this.previousTime;
     this.previousTime += deltaTime;
-
-    SmartDashboard.putNumber("Timer", previousTime);
-
     this.acceleration = RobotContainer.navx.getWorldLinearAccelX() * Constants.G;
     this.velocity += this.acceleration * deltaTime;
     this.displacement += this.velocity * deltaTime;
   }
-
 
 }
