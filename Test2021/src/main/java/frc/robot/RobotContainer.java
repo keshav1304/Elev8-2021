@@ -63,7 +63,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new MoveByAngleCommand(driveSubsystem, 60);
+    return new MoveByAngleCommand(driveSubsystem, 90);
   }
 
   public static double getY(Joystick joy, double deadband) {
