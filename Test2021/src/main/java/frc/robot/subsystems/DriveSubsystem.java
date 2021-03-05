@@ -63,6 +63,7 @@ public class DriveSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("Velocity", this.velocity);
     // SmartDashboard.putNumber("Acceleration", this.acceleration);
 
+    SmartDashboard.putNumber("Enc R", RobotContainer.navx.getYaw());
     SmartDashboard.putNumber("Enc R", RobotContainer.encR.getDistance() * Constants.rightScale);
     SmartDashboard.putNumber("Enc L", RobotContainer.encL.getDistance());
     
@@ -110,6 +111,12 @@ public class DriveSubsystem extends SubsystemBase {
     if (Math.abs(correction) < Constants.minSpeed) correction = Math.signum(correction) * Constants.minSpeed;
     if (Math.abs(correction) > Constants.maxSpeed) correction = Math.signum(correction) * Constants.maxSpeed;
     drive(correction, correction);
+  }
+
+  public void moveByAngle(double correction) {
+    if (Math.abs(correction) < Constants.minSpeed) correction = Math.signum(correction) * Constants.minSpeed;
+    if (Math.abs(correction) > Constants.maxSpeed) correction = Math.signum(correction) * Constants.maxSpeed;
+    drive(correction, -correction);
   }
 
   public void resetIntegrals() {

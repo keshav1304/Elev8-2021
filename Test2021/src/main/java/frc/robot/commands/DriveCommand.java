@@ -30,7 +30,7 @@ public class DriveCommand extends CommandBase {
     double yaxis = RobotContainer.getY(RobotContainer.joy1, Constants.deadband); 
     double zaxis = RobotContainer.getZ(RobotContainer.joy1, Constants.deadband); 
     // driveSubsystem.arcadeInbuilt(yaxis, zaxis);
-    driveSubsystem.driveRaw(yaxis);
+    driveSubsystem.arcadeInbuilt(yaxis, zaxis);
   }
 
   // Called once the command ends or is interrupted.

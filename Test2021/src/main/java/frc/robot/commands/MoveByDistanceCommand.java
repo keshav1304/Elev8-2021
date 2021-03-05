@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class MoveByDistanceCommand extends CommandBase {
 
@@ -33,9 +32,9 @@ public class MoveByDistanceCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.error = this.setpoint - ((driveSubsystem.getAverageDistance()) * Constants.encoderScale);
+    this.error = this.setpoint - ((this.driveSubsystem.getAverageDistance()) * Constants.encoderScale);
     double correction = this.error * 0.2;
-    driveSubsystem.moveByDistance(correction);
+    this.driveSubsystem.moveByDistance(correction);
   }
 
   // Called once the command ends or is interrupted.
@@ -45,6 +44,6 @@ public class MoveByDistanceCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(this.error) <= (setpoint * Constants.deadband));
+    return (Math.abs(this.error) <= Math.max(0.01d, (setpoint * Constants.deadband)));
   }
 }

@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import java.lang.*;
+import java.util.*;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommand;
@@ -14,6 +16,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.MoveByDistanceCommand;
+import frc.robot.commands.MoveByAngleCommand;
+import frc.robot.commands.CoordinateFollowingCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -63,7 +67,12 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new MoveByDistanceCommand(this.driveSubsystem, 3);
+    List<double[]> coordinates = new ArrayList<double[]>();
+    coordinates.add(new double[]{0d, 2.5d});
+    coordinates.add(new double[]{1d, 4.5d});
+    coordinates.add(new double[]{-1d, 5.5d});
+    coordinates.add(new double[]{-1d, 10.5d});
+    return new CoordinateFollowingCommand(this.driveSubsystem, coordinates);
   }
 
   public static double getY(Joystick joy, double deadband) {
