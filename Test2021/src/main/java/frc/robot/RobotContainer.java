@@ -11,6 +11,7 @@ import java.util.*;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.BallFollowingCommand;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,6 +19,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.MoveByDistanceCommand;
 import frc.robot.commands.MoveByAngleCommand;
 import frc.robot.commands.CoordinateFollowingCommand;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,6 +36,7 @@ public class RobotContainer {
 
   // Commands
   private final DriveCommand driveCommand = new DriveCommand(driveSubsystem);
+  // private final BallFollowingCommand ballCommand = new BallFollowingCommand(driveSubsystem);
 
   // IO Devices
   public static Joystick joy1 = new Joystick(1);
@@ -47,6 +52,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     driveSubsystem.setDefaultCommand(driveCommand);
+    
   }
 
   /**
@@ -57,6 +63,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    JoystickButton ballTracker = new JoystickButton(joy1, 5);
+    ballTracker.whileActiveContinuous(new BallFollowingCommand(driveSubsystem));
 
   }
 

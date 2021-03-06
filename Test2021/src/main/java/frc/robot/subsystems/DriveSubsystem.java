@@ -63,7 +63,7 @@ public class DriveSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("Velocity", this.velocity);
     // SmartDashboard.putNumber("Acceleration", this.acceleration);
 
-    SmartDashboard.putNumber("Enc R", RobotContainer.navx.getYaw());
+    SmartDashboard.putNumber("Nav X", RobotContainer.navx.getYaw());
     SmartDashboard.putNumber("Enc R", RobotContainer.encR.getDistance() * Constants.rightScale);
     SmartDashboard.putNumber("Enc L", RobotContainer.encL.getDistance());
     
@@ -117,6 +117,18 @@ public class DriveSubsystem extends SubsystemBase {
     if (Math.abs(correction) < Constants.minSpeed) correction = Math.signum(correction) * Constants.minSpeed;
     if (Math.abs(correction) > Constants.maxSpeed) correction = Math.signum(correction) * Constants.maxSpeed;
     drive(correction, -correction);
+  }
+
+  public void followBall(double angleCorrection, double distanceCorrection) {
+    double correctionLeft = distanceCorrection + angleCorrection;
+    double correctionRight =  distanceCorrection - angleCorrection;
+
+    if (Math.abs(correctionLeft) < Constants.minSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.minSpeed;
+    if (Math.abs(correctionLeft) > Constants.maxSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.maxSpeed;
+    if (Math.abs(correctionRight) < Constants.minSpeed) correctionRight = Math.signum(correctionRight) * Constants.minSpeed;
+    if (Math.abs(correctionRight) > Constants.maxSpeed) correctionRight = Math.signum(correctionRight) * Constants.maxSpeed;
+
+    drive(correctionLeft, correctionRight);
   }
 
   public void resetIntegrals() {

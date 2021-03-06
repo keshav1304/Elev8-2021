@@ -19,16 +19,22 @@ public final class Constants {
     public static final int BR_port = 4; 
     public static final int BL_port = 3;
 
-    public static double maxSpeed = 0.4d;
-    public static double minSpeed = 0.1d;
-    public static double deadband = 0.02d;
+    public static double maxSpeed = 0.48d;
+    public static double minSpeed = 0.12d;
+    public static double deadband = 0.05d;
 
-    // Encoders
-    public static double encoderScale = 0.001425d;
-    public static double rightScale = 0.25d;
+    // Sensors
+    public static double encoderScale = 0.001375d;
+    public static double navxScale = 1.1d;
+    public static double cameraScale = 0.00025d;
+    public static double rightScale = 0.4d;
+    public static double radiusScale = 5.0d;
 
     // public static final double T = 20 * Math.pow(10, -3);
     public static final double G = 9.81d;
     public static final double FIELD = 0.762d;
+    public static final double CAM_WIDTH = 854;
+    public static final double MAX_RADIUS = 100;
+    
     
 }
