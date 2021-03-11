@@ -40,10 +40,25 @@ public class CoordinateFollowingCommand extends SequentialCommandGroup {
       double desiredAngle = Math.toDegrees(Math.atan(slopeReciprocal)) - prevAngle;
       double desiredDistance = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY)) * Constants.FIELD;
 
+      if (desiredAngle >= 50) {
+        Constants.kPTurn = 0.008;
+      }
+      else {
+        Constants.kPTurn = 0.0085;
+      }
+
+      if (desiredDistance >= 0.8) {
+        Constants.kPDist = 0.2; 
+      }
+      else {
+        Constants.kPDist = 0.21;
+      }
+
       SmartDashboard.putNumber("Angle " + i, desiredAngle);
       SmartDashboard.putNumber("Distance " + i, desiredDistance);
 
       addCommands(new MoveByAngleCommand(driveSubsystem, desiredAngle));
+      addCommands(new BallFollowingCommand(driveSubsystem));
       addCommands(new MoveByDistanceCommand(driveSubsystem, desiredDistance));
 
       prevX = x;

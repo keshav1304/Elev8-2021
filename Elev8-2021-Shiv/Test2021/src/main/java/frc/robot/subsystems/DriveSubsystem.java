@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -72,7 +73,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void arcadeInbuilt(double y, double z) {
     FR.setInverted(false);
     BR.setInverted(false);
-    driveTrain.arcadeDrive(y * Constants.maxSpeed, z * Constants.maxSpeed);
+    driveTrain.arcadeDrive(y * Constants.arcadeMaxSpeed, z * Constants.arcadeMaxSpeed);
   }
 
   public void brakeMode() {
@@ -131,6 +132,18 @@ public class DriveSubsystem extends SubsystemBase {
     this.acceleration = RobotContainer.navx.getWorldLinearAccelX() * Constants.G;
     this.velocity += this.acceleration * deltaTime;
     this.displacement += this.velocity * deltaTime;
+  }
+
+  public void followBall(double angleCorrection, double distanceCorrection) {
+    double correctionLeft = distanceCorrection + angleCorrection;
+    double correctionRight =  distanceCorrection - angleCorrection;
+
+    if (Math.abs(correctionLeft) < Constants.minSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.minSpeed;
+    if (Math.abs(correctionLeft) > Constants.maxSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.maxSpeed;
+    if (Math.abs(correctionRight) < Constants.minSpeed) correctionRight = Math.signum(correctionRight) * Constants.minSpeed;
+    if (Math.abs(correctionRight) > Constants.maxSpeed) correctionRight = Math.signum(correctionRight) * Constants.maxSpeed;
+
+    drive(correctionLeft, correctionRight);
   }
 
 }

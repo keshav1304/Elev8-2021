@@ -33,7 +33,7 @@ public class MoveByDistanceCommand extends CommandBase {
   @Override
   public void execute() {
     this.error = this.setpoint - ((this.driveSubsystem.getAverageDistance()) * Constants.encoderScale);
-    double correction = this.error * 0.2;
+    double correction = this.error * Constants.kPDist;
     this.driveSubsystem.moveByDistance(correction);
   }
 

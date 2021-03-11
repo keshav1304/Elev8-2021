@@ -5,35 +5,36 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotContainer;
 import frc.robot.Constants;
 
-public class MoveByAngleCommand extends CommandBase {
+public class BallFollowingCommand extends CommandBase {
+  /** Creates a new BallFollowingCommand. */
 
   DriveSubsystem driveSubsystem;
-  double setpoint, error;
+  double angleError, distanceError;
 
-  /** Creates a new MoveByAngleCommand. */
-  public MoveByAngleCommand(DriveSubsystem driveSubsystem, double setpoint) {
+  public BallFollowingCommand(DriveSubsystem driveSubsystem) {
     this.driveSubsystem = driveSubsystem;
-    this.setpoint = setpoint;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveSubsystem);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    RobotContainer.navx.reset();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.error = this.setpoint - (RobotContainer.navx.getYaw() * 1.1);
-    double correction = this.error * Constants.kPTurn;
-    this.driveSubsystem.moveByAngle(correction);
+    double xCenter = SmartDashboard.getNumber("CenterX", 0.0d);
+    double radius = SmartDashboard.getNumber("Radius", Constants.MAX_RADIUS);
+    this.angleError = ((Constants.CAM_WIDTH * 0.5d) - xCenter) * -1 * Constants.cameraScale;
+    this.distanceError = (Constants.MAX_RADIUS - radius) * Constants.cameraScale * Constants.radiusScale;
+    this.driveSubsystem.followBall(angleError, distanceError);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +44,6 @@ public class MoveByAngleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(this.error) <= Math.max(1.00d, (this.setpoint * Constants.deadband)));
+    return (!RobotContainer.joy1.getRawButton(5) || (this.angleError <= Constants.deadband && this.distanceError <= Constants.MAX_RADIUS * Constants.deadband * Constants.radiusScale));
   }
 }

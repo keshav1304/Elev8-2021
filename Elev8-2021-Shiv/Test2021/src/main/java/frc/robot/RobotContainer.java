@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.MoveByDistanceCommand;
 import frc.robot.commands.MoveByAngleCommand;
+import frc.robot.commands.ABPathCommand;
 import frc.robot.commands.CoordinateFollowingCommand;
 
 /**
@@ -67,12 +68,42 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+
+    // AR
     List<double[]> coordinates = new ArrayList<double[]>();
-    coordinates.add(new double[]{0d, 2.5d});
-    coordinates.add(new double[]{1d, 4.5d});
-    coordinates.add(new double[]{-1d, 5.5d});
-    coordinates.add(new double[]{-1d, 10.5d});
+    coordinates.add(new double[]{0d, 2.8d});
+    coordinates.add(new double[]{1.3d, 4.8d});
+    coordinates.add(new double[]{-2d, 5.8d});
+    coordinates.add(new double[]{0d, 11d});
+
+    // AB
+    /**List<double[]> coordinates = new ArrayList<double[]>();
+    coordinates.add(new double[]{0d, 3d});
+    coordinates.add(new double[]{2.27d, 5.7d});
+    coordinates.add(new double[]{-1.1d, 7d});
+    coordinates.add(new double[]{0.5d, 9d});
+    coordinates.add(new double[]{0d, 11d});**/
+
+    // BR, B = 0, start the robot on B1
+    /**List<double[]> coordinates = new ArrayList<double[]>();
+    coordinates.add(new double[]{0d, 2.6d});
+    coordinates.add(new double[]{2.4d, 5d});
+    coordinates.add(new double[]{0d, 67d});
+    coordinates.add(new double[]{0.4d, 11d});**/
+
+    // BB, B = 0, start the robot on B1
+    /**List<double[]> coordinates = new ArrayList<double[]>();
+    coordinates.add(new double[]{0d, 1.5d});
+    coordinates.add(new double[]{2.25d, 6d});
+    coordinates.add(new double[]{-0.3d, 8d});
+    coordinates.add(new double[]{2.35d, 10d});
+    coordinates.add(new double[]{2d, 11d});**/
+
+
     return new CoordinateFollowingCommand(this.driveSubsystem, coordinates);
+
+
+    // return new ABPathCommand(this.driveSubsystem);
   }
 
   public static double getY(Joystick joy, double deadband) {

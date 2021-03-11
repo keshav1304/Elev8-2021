@@ -19,7 +19,8 @@ public final class Constants {
     public static final int BR_port = 4; 
     public static final int BL_port = 3;
 
-    public static double maxSpeed = 0.4d;
+    public static double arcadeMaxSpeed = 0.6d;
+    public static double maxSpeed = 0.3d;
     public static double minSpeed = 0.1d;
     public static double deadband = 0.02d;
 
@@ -30,5 +31,15 @@ public final class Constants {
     // public static final double T = 20 * Math.pow(10, -3);
     public static final double G = 9.81d;
     public static final double FIELD = 0.762d;
+
+    public static double kPTurn = 0.0085;
+    public static double kPDist = 0.21;
+
+    public static final double CAM_WIDTH = 854;
+    public static final double MAX_RADIUS = 100;
+
+    public static double navxScale = 1.1d;
+    public static double cameraScale = 0.00025d;
+    public static double radiusScale = 5.0d;
     
 }
