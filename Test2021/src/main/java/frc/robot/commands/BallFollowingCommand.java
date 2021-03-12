@@ -34,6 +34,7 @@ public class BallFollowingCommand extends CommandBase {
     this.angleError = ((Constants.CAM_WIDTH * 0.5d) - xCenter) * -1 * Constants.cameraScale;
     this.distanceError = (Constants.MAX_RADIUS - radius) * Constants.cameraScale * Constants.radiusScale;
     this.driveSubsystem.followBall(angleError, distanceError);
+
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +44,7 @@ public class BallFollowingCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (!RobotContainer.joy1.getRawButton(5) || (this.angleError <= Constants.deadband && this.distanceError <= Constants.MAX_RADIUS * Constants.deadband * Constants.radiusScale));
+    // return (!RobotContainer.joy1.getRawButton(5) || (this.angleError <= Constants.deadband && this.distanceError <= Constants.MAX_RADIUS * Constants.deadband * Constants.radiusScale));
+    return (Math.abs(this.angleError) <= Constants.deadband && Math.abs(this.distanceError) <= Constants.deadband);
   }
 }

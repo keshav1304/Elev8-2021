@@ -34,7 +34,7 @@ public final class Constants {
     public static final double G = 9.81d;
     public static final double FIELD = 0.762d;
     public static final double CAM_WIDTH = 854;
-    public static final double MAX_RADIUS = 100;
+    public static final double MAX_RADIUS = 200;
     
     
 }

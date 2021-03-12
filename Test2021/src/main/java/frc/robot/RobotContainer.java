@@ -76,10 +76,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     List<double[]> coordinates = new ArrayList<double[]>();
-    coordinates.add(new double[]{0d, 2.5d});
-    coordinates.add(new double[]{1d, 4.5d});
-    coordinates.add(new double[]{-1d, 5.5d});
-    coordinates.add(new double[]{-1d, 10.5d});
+    coordinates.add(new double[]{0d, 2d});
+    coordinates.add(new double[]{1d, 4d});
+    coordinates.add(new double[]{-1d, 5d});
+    coordinates.add(new double[]{-1d, 10d});
     return new CoordinateFollowingCommand(this.driveSubsystem, coordinates);
   }
 
