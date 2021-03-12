@@ -58,7 +58,8 @@ public class CoordinateFollowingCommand extends SequentialCommandGroup {
       SmartDashboard.putNumber("Distance " + i, desiredDistance);
 
       addCommands(new MoveByAngleCommand(driveSubsystem, desiredAngle));
-      addCommands(new BallFollowingCommand(driveSubsystem));
+      if (i != coordinates.size()-1)
+        addCommands(new BallFollowingCommand(driveSubsystem));
       addCommands(new MoveByDistanceCommand(driveSubsystem, desiredDistance));
 
       prevX = x;

@@ -44,6 +44,7 @@ public class BallFollowingCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (!RobotContainer.joy1.getRawButton(5) || (this.angleError <= Constants.deadband && this.distanceError <= Constants.MAX_RADIUS * Constants.deadband * Constants.radiusScale));
+    // return (!RobotContainer.joy1.getRawButton(5) || (this.angleError <= Constants.deadband && this.distanceError <= Constants.MAX_RADIUS * Constants.deadband * Constants.radiusScale));
+    return Math.abs(this.angleError) <= Constants.deadband;
   }
 }

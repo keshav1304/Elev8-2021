@@ -39,7 +39,9 @@ public final class Constants {
     public static final double MAX_RADIUS = 100;
 
     public static double navxScale = 1.1d;
-    public static double cameraScale = 0.00025d;
+    public static double cameraScale = 0.00035d;
     public static double radiusScale = 5.0d;
+
+    public static double ballRadius = 54;
     
 }

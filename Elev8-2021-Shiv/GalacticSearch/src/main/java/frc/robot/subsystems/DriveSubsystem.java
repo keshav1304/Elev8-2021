@@ -64,9 +64,9 @@ public class DriveSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("Velocity", this.velocity);
     // SmartDashboard.putNumber("Acceleration", this.acceleration);
 
-    SmartDashboard.putNumber("Enc R", RobotContainer.navx.getYaw());
-    SmartDashboard.putNumber("Enc R", RobotContainer.encR.getDistance() * Constants.rightScale);
-    SmartDashboard.putNumber("Enc L", RobotContainer.encL.getDistance());
+    // SmartDashboard.putNumber("Enc R", RobotContainer.navx.getYaw());
+    // SmartDashboard.putNumber("Enc R", RobotContainer.encR.getDistance() * Constants.rightScale);
+    // SmartDashboard.putNumber("Enc L", RobotContainer.encL.getDistance());
     
   }
 
@@ -120,23 +120,9 @@ public class DriveSubsystem extends SubsystemBase {
     drive(correction, -correction);
   }
 
-  public void resetIntegrals() {
-    this.velocity = 0.0d;
-    this.displacement = 0.0d;
-  }
-
-  // Double Integral Function
-  public void updateDistance() {
-    double deltaTime = timer.get() - this.previousTime;
-    this.previousTime += deltaTime;
-    this.acceleration = RobotContainer.navx.getWorldLinearAccelX() * Constants.G;
-    this.velocity += this.acceleration * deltaTime;
-    this.displacement += this.velocity * deltaTime;
-  }
-
   public void followBall(double angleCorrection, double distanceCorrection) {
-    double correctionLeft = distanceCorrection + angleCorrection;
-    double correctionRight =  distanceCorrection - angleCorrection;
+    double correctionLeft = /*distanceCorrection*/ + angleCorrection;
+    double correctionRight =  /*distanceCorrection*/ - angleCorrection;
 
     if (Math.abs(correctionLeft) < Constants.minSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.minSpeed;
     if (Math.abs(correctionLeft) > Constants.maxSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.maxSpeed;
